@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test 2</title>
+  <style>
+    .image-container img {
+      max-width: 100%;
+      max-height: 100%;
+     }
+
+
+    .table1 .image-container {
+      width: 120px;
+      height: 120px;
+      border: 3px solid #000;
+      display: inline-block;
+      margin: 10px;
+            
+    }
+
+
+    .table1 {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+    }
+
+    .table1 .row {
+      margin: 20px; /* добавляем отступы вокруг контейнера */
+      display: flex; /* используем flex-контейнер для размещения таблиц */
+      justify-content: center; /* выравниваем таблицы по центру */
+      align-items: center; /* выравниваем таблицы по вертикали */
+      border: 2px solid black; /* создаем границу из черной линии толщиной 2 пикселя */
+      padding: 10px; 
+      border-radius: 20px;
+
+    }
+
+    /* стили для второй таблицы и анимации при наведении на квадраты */
+    .table2 {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .table2 .row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .table2 .image-container  {
+      width: 110px;
+      height: 110px;
+      border: 2px solid #000;
+      display: inline-block;
+      margin: 10px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    .table2 .image-container:hover {
+      transform: scale(1.2);
+    }
+    
+
+  </style>
+</head>
+<body>
+  <div class="table1">
+    <div class="row">
+      <div class="image-container"><img src="image1.jpg"></div>
+      <div class="image-container"><img src="image2.jpg"></div>
+      <div class="image-container"><img src="image3.jpg"></div>
+      <div class="image-container"><img src="image4.jpg"></div>
+      <div class="image-container"><img id="answer-container" src="image5.jpg"></div>
+    </div>
+  </div>
+
+  <div class="table2">    
+    <div id="options" class="row">
+      <div id="option1" class="image-container" onclick="selectOption(1)"></div>
+      <div id="option2" class="image-container" onclick="selectOption(2)"></div>
+      <div id="option3" class="image-container" onclick="selectOption(3)"></div>
+      <div id="option4" class="image-container" onclick="selectOption(4)"></div>
+      <div id="option5" class="image-container" onclick="selectOption(5)"></div>
+    </div>
+  </div>
+
+  <br>
+  <div id="selected-option"></div>
+  <div id="result"></div>
+
+  <script>
+    var options = ['answer1.jpg', 'answer2.jpg', 'answer3.jpg', 'answer4.jpg', 'answer5.jpg']; // Массив изображений во втором ряду
+    var selectedOption = null; // Выбранная опция
+    var previousOption = null; // Предыдущая выбранная опция
+    
+    function shuffle(array) {
+      // Функция для перемешивания массива (алгоритм Фишера-Йейтса)
+      var currentIndex = array.length, temporaryValue, randomIndex;
+    
+      while (0 !== currentIndex) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+    
+      return array;
+    }
+    
+    function renderOptions() {
+      // Перемешивание и отображение изображений во втором ряду
+      var shuffledOptions = shuffle(options);
+    
+      for (var i = 0; i < shuffledOptions.length; i++) {
+        var optionElement = document.getElementById('option' + (i + 1));
+        optionElement.innerHTML = '<img src="' + shuffledOptions[i] + '">';
+      }
+    }
+    
+    function selectOption(option) {
+      // Проверка, выбрана ли уже эта опция
+      if (selectedOption === option) {
+        // Если выбрана та же опция, сбрасываем выбор
+        selectedOption = null;
+        var answerContainerElement = document.getElementById('answer-container');
+        answerContainerElement.innerHTML = '<img src="image5.jpg">';
+        return;
+      }
+    
+      // Обновление выбранной опции
+      previousOption = selectedOption;
+      selectedOption = option;
+    
+      // Вывод номера выбранной опции
+      var selectedOptionElement = document.getElementById('selected-option');
+      selectedOptionElement.innerHTML = 'Выбрана опция: ' + option;
+    
+      // Проверка выбранного ответа
+      var resultElement = document.getElementById('result');
+      if (options[selectedOption - 1] === 'answer5.jpg') {
+        resultElement.innerHTML = 'Правильно: 1';
+      } else {
+        resultElement.innerHTML = 'Неправильно: 2';
+      }
+    
+      // Замена изображения в первом ряду
+      var answerContainerElement = document.getElementById('answer-container');
+      if (previousOption === option) {
+        answerContainerElement.innerHTML = '<img src="image5.jpg">';
+      } else {
+        answerContainerElement.innerHTML = '<img src="' + options[selectedOption - 1] + '">';
+      }
+    }
+    
+    // Первоначальная отрисовка изображений во втором ряду
+    renderOptions();
+
+
+  </script>
+      </body>
+      </html>
