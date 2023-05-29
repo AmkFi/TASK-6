@@ -1,34 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>задача </title>
+  <title>логика</title>
   <style>
+
+    .table {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+  
+      }
+
+
     .image-container img {
       max-width: 100%;
       max-height: 100%;
      }
 
 
-    .table1 .image-container {
-      width: 130px;
-      height: 130px;
-      border: 3px solid #000;
-      display: inline-block;
-      margin: 5px;
-            
-    }
 
-
-    .table1 {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-
-    }
-
-    .table1 .row {
+    .row1 {
       margin: 50px; /* добавляем отступы вокруг контейнера */
       display: flex; /* используем flex-контейнер для размещения таблиц */
       justify-content: center; /* выравниваем таблицы по центру */
@@ -41,16 +34,16 @@
 
     }
 
-    /* стили для второй таблицы и анимации при наведении на квадраты */
-    .table2 {
-      margin-top: 20px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-     
-    }
+    .row1 .image-container {
+        width: 130px;
+        height: 130px;
+        border: 3px solid #000;
+        display: inline-block;
+        margin: 5px;
+  
+      }
 
-    .table2 .row {
+    .row2 {
         margin: 20px; /* добавляем отступы вокруг контейнера */
         display: flex; /* используем flex-контейнер для размещения таблиц */
         justify-content: center; /* выравниваем таблицы по центру */
@@ -64,7 +57,7 @@
   
       }
 
-      .table2 .image-container {
+      .row2 .image-container {
         width: 120px;
         height: 120px;
         border: 2px solid #000;
@@ -76,36 +69,38 @@
         position: relative;
       }
     
-      .table2 .image-container:hover {
+      .row2 .image-container:hover {
         transform: scale(1.2);
       }
 
-      .table2 .row .label {
+      .label {
         position: absolute;
-        top: -5px;
+        top: -50px;
         left: 0;
         right: 0;
         text-align: center;
         padding: 5px 10px;
         margin: 0 auto;
-        font-size: 16px;
+        font-family: "Comic Sans MS", cursive;
+        font-size: 32px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
       }
   </style>
 </head>
 <body>
-  <div class="table1">
-    <div class="row">
+  <div class="table">
+    <div class="row1">
       <div class="image-container"><img src="image1.jpg"></div>
       <div class="image-container"><img src="image2.jpg"></div>
       <div class="image-container"><img src="image3.jpg"></div>
       <div class="image-container"><img src="image4.jpg"></div>
       <div class="image-container"><img id="question-mark" src="image5.jpg"></div>
     </div>
-  </div>
-
-  <div class="table2">
-    <div id="options" class="row">
-        <span class="label">Варианты</span>
+    <br>
+    <div id="options" class="row2">
+        <span class="label">Vaihtoehdot</span>
       <div id="option1" class="image-container" onclick="selectOption(1)"></div>
       <div id="option2" class="image-container" onclick="selectOption(2)"></div>
       <div id="option3" class="image-container" onclick="selectOption(3)"></div>
