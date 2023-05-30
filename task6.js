@@ -1,7 +1,9 @@
+
 function defineCSS() {
   let style = document.createElement('style');
   style.type = 'text/css';
   style.innerHTML = `
+
   .table {
     margin-top: 20px;
     display: flex;
@@ -59,7 +61,7 @@ function defineCSS() {
     width: 120px;
     height: 120px;
     border: 2px solid #000;
-    display: flex;
+    display: inline-block;
     justify-content: center;
     align-items: center;
     margin: 10px;
@@ -89,7 +91,7 @@ function defineCSS() {
   document.getElementsByTagName('head')[0].appendChild(style);
 }
 
-var options = ['answer1.jpg', 'answer2.jpg', 'answer3.jpg', 'answer4.jpg', 'answer5.jpg']; // Массив изображений во втором ряду
+    var options = ['img/answer1.jpg', 'img/answer2.jpg', 'img/answer3.jpg', 'img/answer4.jpg', 'img/answer5.jpg']; // Массив изображений во втором ряду
     var selectedOption = null; // Переменная для хранения выбранной опции
     
 
@@ -140,7 +142,7 @@ var options = ['answer1.jpg', 'answer2.jpg', 'answer3.jpg', 'answer4.jpg', 'answ
       
           // Проверка выбранного ответа
           var resultElement = document.getElementById('result');
-          var result = (options[selectedOption - 1] === 'answer5.jpg') ? 1 : 2;
+          var result = (options[selectedOption - 1] === 'img/answer5.jpg') ? 1 : 2;
           resultElement.innerHTML = 'Результат: ' + result;
       
           // Замена изображения в первом ряду
@@ -151,3 +153,13 @@ var options = ['answer1.jpg', 'answer2.jpg', 'answer3.jpg', 'answer4.jpg', 'answ
   
     // Первоначальная отрисовка изображений во втором ряду
     renderOptions();
+
+(function () {
+    if(window.setupDone === true) {
+        return;
+    }
+
+    defineCSS();
+
+    window.setupDone = true;
+})();
