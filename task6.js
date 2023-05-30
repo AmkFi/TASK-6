@@ -127,7 +127,7 @@ function defineCSS() {
       
           // Сброс изображения в первом ряду
           var questionMarkElement = document.getElementById('question-mark');
-          questionMarkElement.setAttribute('src', 'image5.jpg');
+          questionMarkElement.setAttribute('src', '/img/image5.jpg');
       
           // Сброс значения результата
           var resultElement = document.getElementById('result');
