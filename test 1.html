@@ -92,11 +92,11 @@
 <body>
   <div class="table">
     <div class="row1">
-      <div class="image-container"><img src="image1.jpg"></div>
-      <div class="image-container"><img src="image2.jpg"></div>
-      <div class="image-container"><img src="image3.jpg"></div>
-      <div class="image-container"><img src="image4.jpg"></div>
-      <div class="image-container"><img id="question-mark" src="image5.jpg"></div>
+      <div class="image-container"><img src="img/image1.jpg"></div>
+      <div class="image-container"><img src="img/image2.jpg"></div>
+      <div class="image-container"><img src="img/image3.jpg"></div>
+      <div class="image-container"><img src="img/image4.jpg"></div>
+      <div class="image-container"><img id="question-mark" src="img/image5.jpg"></div>
     </div>
     <br>
     <div id="options" class="row2">
@@ -114,7 +114,8 @@
   <div id="result"></div>
 
   <script>
-    var options = ['answer1.jpg', 'answer2.jpg', 'answer3.jpg', 'answer4.jpg', 'answer5.jpg']; // Массив изображений во втором ряду
+    var basePath = '/img/'
+    var options = [basePath+'answer1.jpg', basePath+'answer2.jpg',basePath+ 'answer3.jpg',basePath+ 'answer4.jpg',basePath+ 'answer5.jpg']; // Массив изображений во втором ряду
     var selectedOption = null; // Переменная для хранения выбранной опции
     
 
@@ -150,7 +151,7 @@
       
           // Сброс изображения в первом ряду
           var questionMarkElement = document.getElementById('question-mark');
-          questionMarkElement.setAttribute('src', 'image5.jpg');
+          questionMarkElement.setAttribute('src', basePath+'image5.jpg');
       
           // Сброс значения результата
           var resultElement = document.getElementById('result');

@@ -91,7 +91,12 @@ function defineCSS() {
   document.getElementsByTagName('head')[0].appendChild(style);
 }
 
-    var options = ['https://open-learn.xamk.fi/draftfile.php/131853/user/draft/604852086/answer1.jpg', 'https://open-learn.xamk.fi/draftfile.php/131853/user/draft/604852086/answer2.jpg', 'https://open-learn.xamk.fi/draftfile.php/131853/user/draft/604852086/answer3.jpg', 'https://open-learn.xamk.fi/draftfile.php/131853/user/draft/604852086/answer4.jpg', 'https://open-learn.xamk.fi/draftfile.php/131853/user/draft/604852086/answer5.jpg']; // Массив изображений во втором ряду
+
+// Изначальное значение basePath
+var basePath = '/img/';
+
+
+    var options = [ basePath + 'answer1.jpg', basePath + 'answer2.jpg', basePath + 'answer3.jpg', basePath + 'answer4.jpg', basePath + 'answer5.jpg']; // Массив изображений во втором ряду
     var selectedOption = null; // Переменная для хранения выбранной опции
     
 
@@ -127,7 +132,7 @@ function defineCSS() {
       
           // Сброс изображения в первом ряду
           var questionMarkElement = document.getElementById('question-mark');
-          questionMarkElement.setAttribute('src', '/img/image5.jpg');
+          questionMarkElement.setAttribute('src', basePath +'image5.jpg');
       
           // Сброс значения результата
           var resultElement = document.getElementById('result');
@@ -142,7 +147,7 @@ function defineCSS() {
       
           // Проверка выбранного ответа
           var resultElement = document.getElementById('result');
-          var result = (options[selectedOption - 1] === 'https://open-learn.xamk.fi/draftfile.php/131853/user/draft/604852086/answer5.jpg') ? 1 : 2;
+          var result = (options[selectedOption - 1] === basePath +'answer5.jpg') ? 1 : 2;
           resultElement.innerHTML = 'Результат: ' + result;
       
           // Замена изображения в первом ряду
@@ -163,3 +168,7 @@ function defineCSS() {
 
     window.setupDone = true;
 })();
+
+window.onload=function(){
+  result=getAnswerInput('ans1');
+}
