@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+
+  <title>Binding text to point</title>
+  <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+  <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" type="text/css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" charset="UTF-8"></script>
+
+  <!-- The next line is optional: MathJax -->
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</head>
+
+
+
+
+<body>
+  <span id="vv1"></span>
+
+  <!--
+
+<script type="text/javascript" charset="UTF-8" src="//cdnjs.cloudflare.com/ajax/libs/jsxgraph/1.5.0/jsxgraphcore.js"></script>
+
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/jsxgraph/1.5.0/jsxgraph.css" />
+
+-->
+<div id="root"></div>
+
+<div id="divid" class="jxgbox" style="width: 600px; height: 600px"></div>
+
+
+<script type="text/javascript" charset="UTF-8"
+   src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" />
+
+
+<br />
+
+<script type="text/javascript">
+    const board = JXG.JSXGraph.initBoard("divid", {boundingbox: [-10, 10, 10, -10],showNavigation: false,showCopyright: false, grid: false,axis: false,
+    });
+
+    let point1 = board.create("point", [1, -3], {
+      size: 0,
+      name: "",
+      color: "red",
+      fixed: true,
+      showInfobox: false,
+    });
+/*
+    let text1 = board.create(
+      "text",
+      [point1.X(), point1.Y(), "Alkuperäinen yhtälö"],
+      {
+        fixed: false,
+        fontSize: 20,
+      }
+    );
+   */ 
+
+   let lang = "en";
+
+let text1 = board.create(
+  "text",
+   [point1.X(), point1.Y(), (lang === "fi") ? "Alkuperäinen yhtälö" : "Original equation"],
+    {
+       fixed: false,
+        fontSize: 20
+       }
+       );
+
+
+
+
+
+    text1.on("drag", function () {
+      point1.moveTo([text1.X(), text1.Y()]);
+    });
+
+    let pointEq1 = board.create("point", [-8, -3], {
+      size: 0,
+      name: "",
+      color: "red",
+      fixed: true,
+      showInfobox: false,
+    });
+
+    let eq1 = board.create("text",[pointEq1.X(),pointEq1.Y(),function () {return "\\[ax+b=0\\]";},],{useMathJax: true,fixed: false,fontSize: 18,});
+
+
+    eq1.on("drag", function () {
+      pointEq1.moveTo([eq1.X(), eq1.Y()]);
+    });
+
+    let point2 = board.create("point", [1, -5], {
+      size: 0,
+      name: "",
+      color: "red",
+      fixed: true,
+      showInfobox: false,
+    });
+
+    let text2 = board.create(
+      "text",
+      [point2.X(), point2.Y(), "Vähennetään vakio yhtälön molemmin puolin"],{
+        fixed: false,
+        fontSize: 20,
+      }
+    );
+
+    text2.on("drag", function () {
+      point2.moveTo([text2.X(), text2.Y()]);
+    });
+
+    let pointEq2 = board.create("point", [-8, -5], {
+      size: 0,
+      name: "",
+      color: "red",
+      fixed: true,
+      showInfobox: false,
+    });
+
+    let eq2 = board.create("text",[
+        pointEq2.X(),
+        pointEq2.Y(),
+        function () {
+          return "\\[ax=-b\\]";
+        },
+      ],{
+        useMathJax: true,
+        fixed: false,
+        fontSize: 18,
+      }
+    );
+
+    eq2.on("drag", function () {
+      pointEq2.moveTo([eq2.X(), eq2.Y()]);
+    });
+
+    let point3 = board.create("point", [1, -7], {
+      size: 0,
+      name: "",
+      color: "red",
+      fixed: true,
+      showInfobox: false,
+    });
+
+    let text3 = board.create(
+      "text",
+      [point3.X(), point3.Y(), "Jaetaan kertoimella"],
+      {
+        fixed: false,
+        fontSize: 20,
+      }
+    );
+
+    text3.on("drag", function () {
+      point3.moveTo([text3.X(), text3.Y()]);
+    });
+
+    let pointEq3 = board.create("point", [-8, -7], {
+      size: 0,
+      name: "",
+      color: "red",
+      fixed: true,
+      showInfobox: false,
+    });
+
+
+    let eq3 = board.create(
+      "text",
+      [
+        pointEq3.X(),
+        pointEq3.Y(),
+        function () {
+          return "\\[x=\\frac{-b}{a}\\]";
+        },
+      ],
+      {
+        useMathJax: true,
+        fixed: false,
+        fontSize: 18,
+      }
+    );
+
+
+    eq3.on("drag", function () {
+      pointEq3.moveTo([eq3.X(), eq3.Y()]);
+    });
+
+    let verticalLine = board.create(
+      "segment",
+      [
+        [-2, -2],
+        [-2, 10],
+      ],{ 
+        strokeColor: "blue",
+        fixed: true, 
+        highlight: false, 
+        strokeWidth: 5 }
+    );
+
+    const y1 = 6;
+    const y2 = 2;
+    const y3 = -2;
+
+    let line1 = board.create("line",[[-10, y1],[10, y1],],{ strokeColor: "black", fixed: true, highlight: false });
+    let line2 = board.create("line",[[-10, y2],[10, y2],],{ strokeColor: "black", fixed: true, highlight: false });
+    let line3 = board.create("line",[[-10, y3],[10, y3],],{ strokeColor: "black", fixed: true, highlight: false });
+
+    const coords = [[-10, -2],[10, -2],[10, -10],[-10, -10],];
+
+    const polygon = board.create("polygon", coords, { fillColor: "yellow",
+      strokeColor: "blue",
+      strokeWidth: 5,
+      highlight: false,
+      fixed: true,
+    });
+
+
+    polygon.vertices.forEach((vertex) => {
+      vertex.setAttribute({ fixed: true, size: 0 });
+    });
+
+  </script>
+
+</body>
+
+</html>

@@ -95,9 +95,24 @@ function defineCSS() {
 // Изначальное значение basePath
 var basePath = '/img/';
 
+function row1Images() {
+  var images = [
+    'image1.jpg',
+    'image2.jpg',
+    'image3.jpg',
+    'image4.jpg',
+    'image5.jpg'
+  ];
 
-    var options = [ basePath +'answer1.jpg', basePath + 'answer2.jpg', basePath + 'answer3.jpg', basePath + 'answer4.jpg', basePath + 'answer5.jpg']; // Массив изображений во втором ряду
+  for (var i = 0; i < images.length; i++) {
+    var imageElement = document.getElementById('image' + (i + 1));
+    imageElement.src = basePath + images[i];
+  }
+}
+
     var selectedOption = null; // Переменная для хранения выбранной опции
+    var options = [ 'answer1.jpg', 'answer2.jpg', 'answer3.jpg', 'answer4.jpg', 'answer5.jpg']; // Массив изображений во втором ряду
+    
     
 
     function shuffle(array) {
@@ -116,7 +131,7 @@ var basePath = '/img/';
       return array;
     }
   
-    function renderOptions() {
+    function renderAnswers() {
       // Перемешивание и отображение изображений во втором ряду
       var shuffledOptions = shuffle(options);
 
@@ -127,19 +142,24 @@ var basePath = '/img/';
     }
   
     function selectOption(option) {
+
+      var resultElement = document.getElementById('result');
+
         // Проверка, была ли выбрана уже та же самая опция
         if (selectedOption === option) {
+
           // Сброс выбранной опции
           selectedOption = null;
       
           // Сброс изображения в первом ряду
-          var questionMarkElement = document.getElementById('question-mark');
+          var questionMarkElement = document.getElementById('image5');
           questionMarkElement.setAttribute('src', basePath +'image5.jpg');
-      
+
           // Сброс значения результата
-          var resultElement = document.getElementById('result');
           resultElement.innerHTML = null;
+
         } else {
+
           // Обновление выбранной опции
           selectedOption = option;
       
@@ -147,19 +167,20 @@ var basePath = '/img/';
           var selectedOptionElement = document.getElementById('selected-option');
           selectedOptionElement.innerHTML = 'Выбрана опция: ' + option;
       
+          // Получение имени файла выбранной опции
+          var selectedOptionFileName = options[selectedOption - 1].split('/').pop();
+
           // Проверка выбранного ответа
-          var resultElement = document.getElementById('result');
-          var result = (options[selectedOption - 1] === basePath +'answer5.jpg') ? 1 : 2;
-          resultElement.innerHTML = 'Результат: ' + result;
+           var result = (selectedOptionFileName === 'answer5.jpg') ? 1 : 2;
+           resultElement.innerHTML = 'Результат: ' + result;
       
           // Замена изображения в первом ряду
-          var questionMarkElement = document.getElementById('question-mark');
-          questionMarkElement.setAttribute('src', options[selectedOption - 1]);
+          var questionMarkElement = document.getElementById('image5');
+          questionMarkElement.setAttribute('src', basePath+ options[selectedOption - 1]);
         }
       }
   
-    // Первоначальная отрисовка изображений во втором ряду
-    renderOptions();
+
 
 (function () {
     if(window.setupDone === true) {
@@ -167,6 +188,12 @@ var basePath = '/img/';
     }
 
     defineCSS();
+    // Первоначальная отрисовка изображений во втором ряду
+    renderAnswers();
+    
+    // Вызов функции для установки пути к изображениям
+row1Images();
+
 
     window.setupDone = true;
 })();
@@ -174,3 +201,4 @@ var basePath = '/img/';
 window.onload=function(){
   result=getAnswerInput('ans1');
 }
+
