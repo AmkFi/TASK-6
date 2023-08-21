@@ -1,4 +1,3 @@
-
 function defineCSS() {
   let style = document.createElement('style');
   style.type = 'text/css';
@@ -91,13 +90,30 @@ function defineCSS() {
   document.getElementsByTagName('head')[0].appendChild(style);
 }
 
+var scriptPath = document.currentScript.src; // Получить путь к текущему скрипту
+var newPath = scriptPath.substring(0, scriptPath.lastIndexOf('/') + 1);
+
 
 // Изначальное значение basePath
-var basePath = '/img/';
 
+function row1Images() {
+  var images = [
+    'image1.jpg',
+    'image2.jpg',
+    'image3.jpg',
+    'image4.jpg',
+    'image5.jpg'
+  ];
 
-    var options = [ basePath +'answer1.jpg', basePath + 'answer2.jpg', basePath + 'answer3.jpg', basePath + 'answer4.jpg', basePath + 'answer5.jpg']; // Массив изображений во втором ряду
+  for (var i = 0; i < images.length; i++) {
+    var imageElement = document.getElementById('image' + (i + 1));
+    imageElement.src = newPath + images[i];
+  }
+}
+
     var selectedOption = null; // Переменная для хранения выбранной опции
+    var options = [ 'answer1.jpg', 'answer2.jpg', 'answer3.jpg', 'answer4.jpg', 'answer5.jpg']; // Массив изображений во втором ряду
+    
     
 
     function shuffle(array) {
@@ -116,30 +132,35 @@ var basePath = '/img/';
       return array;
     }
   
-    function renderOptions() {
+    function renderAnswers() {
       // Перемешивание и отображение изображений во втором ряду
       var shuffledOptions = shuffle(options);
 
       for (var i = 0; i < shuffledOptions.length; i++) {
         var optionElement = document.getElementById('option' + (i + 1));
-        optionElement.innerHTML = '<img src="' + basePath + shuffledOptions[i] + '">';
+        optionElement.innerHTML = '<img src="' + newPath + shuffledOptions[i] + '">';
       }
     }
   
     function selectOption(option) {
+
+      var resultElement = document.getElementById('result');
+
         // Проверка, была ли выбрана уже та же самая опция
         if (selectedOption === option) {
+
           // Сброс выбранной опции
           selectedOption = null;
       
           // Сброс изображения в первом ряду
-          var questionMarkElement = document.getElementById('question-mark');
-          questionMarkElement.setAttribute('src', basePath +'image5.jpg');
-      
+          var questionMarkElement = document.getElementById('image5');
+          questionMarkElement.setAttribute('src', newPath +'image5.jpg');
+
           // Сброс значения результата
-          var resultElement = document.getElementById('result');
           resultElement.innerHTML = null;
+
         } else {
+
           // Обновление выбранной опции
           selectedOption = option;
       
@@ -147,19 +168,20 @@ var basePath = '/img/';
           var selectedOptionElement = document.getElementById('selected-option');
           selectedOptionElement.innerHTML = 'Выбрана опция: ' + option;
       
+          // Получение имени файла выбранной опции
+          var selectedOptionFileName = options[selectedOption - 1].split('/').pop();
+
           // Проверка выбранного ответа
-          var resultElement = document.getElementById('result');
-          var result = (options[selectedOption - 1] === basePath +'answer5.jpg') ? 1 : 2;
-          resultElement.innerHTML = 'Результат: ' + result;
+           var result = (selectedOptionFileName === 'answer5.jpg') ? 1 : 2;
+           resultElement.innerHTML = 'Результат: ' + result;
       
           // Замена изображения в первом ряду
-          var questionMarkElement = document.getElementById('question-mark');
-          questionMarkElement.setAttribute('src', options[selectedOption - 1]);
+          var questionMarkElement = document.getElementById('image5');
+          questionMarkElement.setAttribute('src', newPath + options[selectedOption - 1]);
         }
       }
   
-    // Первоначальная отрисовка изображений во втором ряду
-    renderOptions();
+
 
 (function () {
     if(window.setupDone === true) {
@@ -167,7 +189,8 @@ var basePath = '/img/';
     }
 
     defineCSS();
-
+    row1Images();
+    renderAnswers();
     window.setupDone = true;
 })();
 
